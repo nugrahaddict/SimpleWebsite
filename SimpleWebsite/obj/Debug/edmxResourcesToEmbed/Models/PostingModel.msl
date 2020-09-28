@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="NugrahaBlogModelStoreContainer" CdmEntityContainer="NugrahaBlogEntities">
+    <EntitySetMapping Name="u_post">
+      <EntityTypeMapping TypeName="NugrahaBlogModel.u_post">
+        <MappingFragment StoreEntitySet="u_post">
+          <ScalarProperty Name="Id_Post" ColumnName="Id_Post" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Id_Author" ColumnName="Id_Author" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+          <ScalarProperty Name="Tags" ColumnName="Tags" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

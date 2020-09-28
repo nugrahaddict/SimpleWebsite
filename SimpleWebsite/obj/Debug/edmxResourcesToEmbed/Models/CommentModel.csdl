@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="NugrahaBlogModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="u_comment">
+    <Key>
+      <PropertyRef Name="Id_Comment" />
+    </Key>
+    <Property Name="Id_Comment" Type="Int32" Nullable="false" />
+    <Property Name="Id_Post" Type="Int32" Nullable="false" />
+    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="7" />
+    <Property Name="Author" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="u_post" Relationship="Self.FK_Post_To_Comment" FromRole="u_comment" ToRole="u_post" />
+  </EntityType>
+  <EntityType Name="u_post">
+    <Key>
+      <PropertyRef Name="Id_Post" />
+    </Key>
+    <Property Name="Id_Post" Type="Int32" Nullable="false" />
+    <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Id_Author" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="7" />
+    <Property Name="UpdateTime" Type="DateTime" Nullable="false" Precision="7" />
+    <Property Name="Tags" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="u_comment" Relationship="Self.FK_Post_To_Comment" FromRole="u_post" ToRole="u_comment" />
+  </EntityType>
+  <Association Name="FK_Post_To_Comment">
+    <End Role="u_post" Type="Self.u_post" Multiplicity="1" />
+    <End Role="u_comment" Type="Self.u_comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="u_post">
+        <PropertyRef Name="Id_Post" />
+      </Principal>
+      <Dependent Role="u_comment">
+        <PropertyRef Name="Id_Post" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="NugrahaBlogEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="u_comment" EntityType="Self.u_comment" />
+    <EntitySet Name="u_post" EntityType="Self.u_post" />
+    <AssociationSet Name="FK_Post_To_Comment" Association="Self.FK_Post_To_Comment">
+      <End Role="u_post" EntitySet="u_post" />
+      <End Role="u_comment" EntitySet="u_comment" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

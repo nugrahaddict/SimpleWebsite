@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="NugrahaBlogModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="u_comment">
+    <Key>
+      <PropertyRef Name="Id_Comment" />
+    </Key>
+    <Property Name="Id_Comment" Type="int" Nullable="false" />
+    <Property Name="Id_Post" Type="int" Nullable="false" />
+    <Property Name="Content" Type="nvarchar(max)" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreateTime" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="Author" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="u_post">
+    <Key>
+      <PropertyRef Name="Id_Post" />
+    </Key>
+    <Property Name="Id_Post" Type="int" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="Id_Author" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CreateTime" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="UpdateTime" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="Tags" Type="nvarchar" MaxLength="50" />
+    <Property Name="Content" Type="nvarchar(max)" />
+  </EntityType>
+  <Association Name="FK_Post_To_Comment">
+    <End Role="u_post" Type="Self.u_post" Multiplicity="1" />
+    <End Role="u_comment" Type="Self.u_comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="u_post">
+        <PropertyRef Name="Id_Post" />
+      </Principal>
+      <Dependent Role="u_comment">
+        <PropertyRef Name="Id_Post" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="NugrahaBlogModel1StoreContainer">
+    <EntitySet Name="u_comment" EntityType="Self.u_comment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="u_post" EntityType="Self.u_post" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Post_To_Comment" Association="Self.FK_Post_To_Comment">
+      <End Role="u_post" EntitySet="u_post" />
+      <End Role="u_comment" EntitySet="u_comment" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
